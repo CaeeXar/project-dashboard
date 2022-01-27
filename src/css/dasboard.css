@@ -1,0 +1,71 @@
+body {
+    background-color: #FFEBEE;
+}
+
+.container{
+    text-align: center;
+    color: #424242;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-check:active+.btn-primary,
+.btn-check:checked+.btn-primary, 
+.btn-primary.active, .btn-primary:active, 
+.show>.btn-primary.dropdown-toggle {
+    background-color: #424242;
+    border-color:#424242;
+    color:#FFEBEE;
+}
+
+.btn-check:focus+.btn-primary, 
+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus, 
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus, 
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    background-color: #424242;
+    border-color:#424242;
+    box-shadow: 0 0 0 0.25rem #a0a0a0;
+    color:#FFEBEE;
+}
+
+.form-control{
+    color:#424242;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem #a0a0a0;
+    color:#424242;
+}
+
+.card {
+    background-color: #424242;
+    color: #FFEBEE;
+}
+
+hr{
+    margin: 20px 0px;
+    background-color: #424242;
+}
+
+.simplebar-scrollbar::before{
+    background-color: #424242;
+}
+
+.simplebar-horizontal{
+    visibility: hidden !important;
+}
+
+.simplebar-vertical {
+    right: -11px;
+}
+
+[data-simplebar]{
+    max-height: calc(70vh - 30px);
+}
+
+.card-footer{
+    border-color: #FFEBEE;
+}
