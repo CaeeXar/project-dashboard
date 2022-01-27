@@ -117,7 +117,7 @@ function Dashboard() {
                     </small>
 
                     <Button variant="secondary" onClick={handleClose}>
-                        Goto {selected.title}
+                        Goto <b>{selected.title}</b>
                     </Button>
                 </Modal.Footer>
             </Modal>
