@@ -43,6 +43,7 @@ body {
 .card {
     background-color: #424242;
     color: #FFEBEE;
+    max-height: 300px;
 }
 
 hr{
