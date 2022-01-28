@@ -3,9 +3,10 @@ import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } fro
 import SimpleBar from 'simplebar-react';
 
 const PROJECT_STATUS = {
-    TODO: "orange",
-    STABLE: "green",
-    DISCARDED: "red",
+    STABLE: { colorCode: "#88a28b", status: "STABLE" },
+    IDEA: { colorCode: "#ebc57e", status: "IDEA" },
+    ON_HOLD: { colorCode: "#7f7f7f ", status: "ON HOLD" },
+    DISCARDED: { colorCode: "#b3533a", status: "DISCARDED" },
 };
 
 const projects = [
@@ -15,15 +16,16 @@ const projects = [
         description: `A simple password-manager.`,
         logo: "oneWord.svg",
         version: `0.0.1`,
-        status: "DISCARDED",
+        status: "ON_HOLD",
     },
     {
         id: 2,
-        title: `LiPo-Manager`,
-        description: `A tool to manage lithium polymer batteries for RC. Get yourself an overview of all your LiPo's and their status (age, etc.).`,
+        title: `RC-Manager`,
+        description: `A tool to manage everything for your RC-experience.
+Get yourself an overview of all your LiPo's, PID-tuning, rates, etc.`,
         logo: null,
-        version: `0.0.1`,
-        status: "TODO",
+        version: `0.0.0`,
+        status: "IDEA",
     },
 ];
 
@@ -87,8 +89,8 @@ function Dashboard() {
                                         </Col>
                                         <Col>
                                             <small>Status: &nbsp;
-                                                <span style={{ color: PROJECT_STATUS[project.status] }}>
-                                                    {project.status}
+                                                <span style={{ color: PROJECT_STATUS[project.status].colorCode }}>
+                                                    {(PROJECT_STATUS[project.status] || {}).status}
                                                 </span>
                                             </small>
                                         </Col>
@@ -113,7 +115,7 @@ function Dashboard() {
                 <Modal.Footer>
                     <small style={{ position: "absolute", left: "0.75rem" }}>
                         Version: {selected.version} <br />
-                        Status: <span style={{ color: PROJECT_STATUS[selected.status] }}>{selected.status}</span>
+                        Status: <span style={{ color: (PROJECT_STATUS[selected.status] || {}).colorCode }}>{(PROJECT_STATUS[selected.status] || {}).status}</span>
                     </small>
 
                     <Button variant="secondary" onClick={handleClose}>
