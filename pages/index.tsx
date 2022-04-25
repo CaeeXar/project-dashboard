@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { useState, } from "react";
 import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } from "react-bootstrap";
 import SimpleBar from 'simplebar-react';
+import loadData from "../lib/test";
 
 const PROJECT_STATUS = {
   STABLE: { colorCode: "#88a28b", status: "STABLE" },
@@ -44,7 +45,9 @@ function prepareDescription(description: string) {
   return description;
 }
 
-const Dashboard: NextPage = () => {
+const Dashboard: NextPage<{ posts: string }> = (props) => {
+  console.log(props.posts);
+
   const [filteredProjects, setFilteredProjects] = useState([...projects]);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState<Project | null>(null);
@@ -139,6 +142,15 @@ const Dashboard: NextPage = () => {
       </Modal>
     </Container >
   );
+}
+
+export async function getStaticProps() {
+  // Instead of fetching your `/api` route you can call the same
+  // function directly in `getStaticProps`
+  const posts = await loadData();
+
+  // Props returned will be passed to the page component
+  return { props: { posts } }
 }
 
 export default Dashboard
