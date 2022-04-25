@@ -71,3 +71,7 @@ hr {
 .card-footer {
     border-color: #FFEBEE;
 }
+
+.pointer:hover {
+    cursor: pointer;
+}

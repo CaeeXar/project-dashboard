@@ -1,43 +1,27 @@
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useState, } from "react";
 import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } from "react-bootstrap";
 import SimpleBar from 'simplebar-react';
-import loadData from "../lib/test";
+import { getAllProjects, getProjectStatus } from "../js/database";
 
-const PROJECT_STATUS = {
-  STABLE: { colorCode: "#88a28b", status: "STABLE" },
-  IDEA: { colorCode: "#ebc57e", status: "IDEA" },
-  ON_HOLD: { colorCode: "#7f7f7f ", status: "ON HOLD" },
-  DISCARDED: { colorCode: "#b3533a", status: "DISCARDED" },
+export type ProjectStatus = {
+  id: string,
+  status: string,
+  colorCode: string,
 };
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: `OneWord`,
-    description: `A simple password-manager.`,
-    logo: "oneWord.svg",
-    version: `0.0.1`,
-    status: "ON_HOLD",
-  },
-  {
-    id: 2,
-    title: `RC-Manager`,
-    description: `A tool to manage everything for your RC-experience.
-Get yourself an overview of all your LiPo's, PID-tuning, rates, etc.`,
-    logo: null,
-    version: `0.0.0`,
-    status: "IDEA",
-  },
-];
-
-type Project = {
+export type Project = {
   id: number,
   title: string,
   description: string,
   logo: string | null,
   version: string,
-  status: keyof typeof PROJECT_STATUS,
+  status: string,
+  colorCode: string,
+  statusId: string,
 };
 
 function prepareDescription(description: string) {
@@ -45,10 +29,10 @@ function prepareDescription(description: string) {
   return description;
 }
 
-const Dashboard: NextPage<{ posts: string }> = (props) => {
-  console.log(props.posts);
-
-  const [filteredProjects, setFilteredProjects] = useState([...projects]);
+const Dashboard: NextPage = (props: any) => {
+  const PROJECTS: Project[] = props.PROJECTS || [];
+  const router = useRouter();
+  const [filteredProjects, setFilteredProjects] = useState(PROJECTS);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState<Project | null>(null);
 
@@ -58,15 +42,18 @@ const Dashboard: NextPage<{ posts: string }> = (props) => {
     setShow(true);
   }
   const onChange = (search: string) => setFilteredProjects(
-    projects.filter(
+    PROJECTS.filter(
       (project) => project.description.toLowerCase().includes(search) || project.title.toLowerCase().includes(search)
     )
   );
+  const onEdit = () => {
+    router.push({ pathname: `/edit`, query: { id: (selected || {}).id } });
+  };
 
   return (
     <Container>
       <div style={{ maxHeight: "30vh", marginBottom: "30px" }}>
-        <Row >
+        <Row>
           <Col>
             <h1>Project-Dashboard</h1>
           </Col>
@@ -82,7 +69,7 @@ const Dashboard: NextPage<{ posts: string }> = (props) => {
       </div>
 
       <SimpleBar forceVisible="y" autoHide={false} >
-        <Row className="g-2" >
+        <Row className="g-2">
           {filteredProjects.map((project) => (
             <Col sm={6} md={6} key={project.id}>
               <Card onClick={e => onProjectSelection(project)}>
@@ -100,10 +87,11 @@ const Dashboard: NextPage<{ posts: string }> = (props) => {
                     <Col>
                       <small>Version: {project.version}</small>
                     </Col>
+
                     <Col>
                       <small>Status: &nbsp;
-                        <span style={{ color: PROJECT_STATUS[project.status].colorCode }}>
-                          {(PROJECT_STATUS[project.status] || {}).status}
+                        <span style={{ color: project.colorCode }}>
+                          {project.status}
                         </span>
                       </small>
                     </Col>
@@ -125,12 +113,19 @@ const Dashboard: NextPage<{ posts: string }> = (props) => {
 
             <Modal.Body>
               {selected.description}
+
+              <div style={{ textAlign: "center", marginTop: "10px" }} >
+                <FontAwesomeIcon className="pointer" icon={faEdit} onClick={onEdit} />
+              </div>
             </Modal.Body>
 
             <Modal.Footer>
               <small style={{ position: "absolute", left: "0.75rem" }}>
                 Version: {selected.version} <br />
-                Status: <span style={{ color: (PROJECT_STATUS[selected.status] || {}).colorCode }}>{(PROJECT_STATUS[selected.status] || {}).status}</span>
+                Status: &nbsp;
+                <span style={{ color: selected.colorCode }}>
+                  {selected.status}
+                </span>
               </small>
 
               <Button variant="secondary" onClick={handleClose}>
@@ -144,13 +139,12 @@ const Dashboard: NextPage<{ posts: string }> = (props) => {
   );
 }
 
-export async function getStaticProps() {
-  // Instead of fetching your `/api` route you can call the same
-  // function directly in `getStaticProps`
-  const posts = await loadData();
+export async function getServerSideProps() {
+  const PROJECTS: Project[] = await getAllProjects();
 
-  // Props returned will be passed to the page component
-  return { props: { posts } }
+  return {
+    props: { PROJECTS },
+  }
 }
 
 export default Dashboard
