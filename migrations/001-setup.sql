@@ -11,7 +11,7 @@ CREATE TABLE PROJECTS (
     description TEXT,
     logo TEXT NULL,
     version TEXT,
-    status TEXT REFERENCES PROJECT_STATUS
+    statusId TEXT REFERENCES PROJECT_STATUS
 );
 
 INSERT INTO PROJECT_STATUS (id, status, colorCode) 
@@ -25,9 +25,9 @@ INSERT INTO PROJECT_STATUS (id, status, colorCode)
 INSERT INTO PROJECT_STATUS (id, status, colorCode) 
     VALUES ('DISC', 'Discarded', '#b3533a');
 
-INSERT INTO PROJECTS (title, description, logo, version, status) 
+INSERT INTO PROJECTS (title, description, logo, version, statusId) 
     VALUES ('One Word', 'A simple password-manager.', 'oneWord.svg', '0.0.0', 'HOLD');
-INSERT INTO PROJECTS (title, description, logo, version, status) 
+INSERT INTO PROJECTS (title, description, logo, version, statusId) 
     VALUES ('RC-Manager', 'A tool to manage everything for your RC-experience. Get yourself an overview of all your LiPo''s, PID-tuning, rates, etc.', NULL, '0.0.0', 'WORK');
 
 -- Down

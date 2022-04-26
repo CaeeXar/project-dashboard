@@ -1,9 +1,8 @@
 import type { NextPage, NextApiRequest } from 'next';
-import { useState, } from "react";
-import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image, DropdownButton, Dropdown } from "react-bootstrap";
-import SimpleBar from 'simplebar-react';
+import { ChangeEvent, useState, } from "react";
+import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import type { Project, ProjectStatus } from './index';
-import { getProjectById, getAllProjects, getProjectStatus, updateProject } from "../js/database";
+import { getProjectById, getProjectStatus } from "../js/database";
 import { NextRouter, useRouter } from 'next/router';
 
 function routeHome(router: NextRouter) {
@@ -16,6 +15,10 @@ function findStatusColor(id: string, status: ProjectStatus[]) {
     return (status.find(s => s.id == id) || {}).colorCode || 'black';
 }
 
+function findStatusText(id: string, status: ProjectStatus[]) {
+    return (status.find(s => s.id == id) || {}).status || 'NOT FOUND';
+}
+
 const Edit: NextPage = (props: any) => {
     const PROJECT: Project = { ...props.PROJECT };
     const PROJECT_STATUS: ProjectStatus[] = [...props.PROJECT_STATUS];
@@ -24,13 +27,28 @@ const Edit: NextPage = (props: any) => {
     const [title, setTitle] = useState(PROJECT.title);
     const [description, setDescription] = useState(PROJECT.description);
     const [version, setVersion] = useState(PROJECT.version);
-    const [status, setStatus] = useState(PROJECT.statusId);
+    const [statusId, setStatusId] = useState(PROJECT.statusId);
+    const [status, setStatus] = useState(PROJECT.status);
 
+    const onStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setStatusId(event.target.value);
+        setStatus(findStatusText(event.target.value, PROJECT_STATUS));
+    };
     const onCancel = () => routeHome(router);
-    const onSave = () => {
-        const project = { ...PROJECT, title, description, version, status };
-        // updateProject(project);
-        routeHome(router);
+    const onSave = async () => {
+        const project = { ...PROJECT, title, description, version, statusId, status };
+
+        const res = await fetch('/api/edit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(project),
+        });
+
+        if (res.status === 200) {
+            routeHome(router);
+        } else {
+            console.error(await res.json());
+        }
     };
 
     return (
@@ -74,16 +92,14 @@ const Edit: NextPage = (props: any) => {
                     </Form.Label>
 
                     <Col sm="4">
-                        <Form.Select onChange={e => setStatus(e.target.value)} value={status} style={{ color: findStatusColor(status, PROJECT_STATUS) }}>
+                        <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
                             {PROJECT_STATUS.map(status => {
                                 return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
                             })}
                         </Form.Select>
                     </Col>
                 </Form.Group>
-            </Form>
 
-            <footer style={{ textAlign: "right" }}>
                 <Button style={{ margin: "5px" }} variant="success" onClick={onSave}>
                     Save
                 </Button>
@@ -91,7 +107,7 @@ const Edit: NextPage = (props: any) => {
                 <Button style={{ margin: "5px" }} variant="danger" onClick={onCancel}>
                     Cancel
                 </Button>
-            </footer>
+            </Form>
         </Container>
     );
 };

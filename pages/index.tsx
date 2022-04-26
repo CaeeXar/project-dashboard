@@ -20,8 +20,8 @@ export type Project = {
   logo: string | null,
   version: string,
   status: string,
-  colorCode: string,
   statusId: string,
+  colorCode: string,
 };
 
 function prepareDescription(description: string) {
