@@ -50,6 +50,22 @@ const Edit: NextPage = (props: any) => {
             console.error(await res.json());
         }
     };
+    const onDelete = async () => {
+        if (!confirm("Are you sure you want to delete this project?")) return;
+        const pid = { id: PROJECT.id };
+
+        const res = await fetch('/api/edit', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(pid),
+        });
+
+        if (res.status === 200) {
+            routeHome(router);
+        } else {
+            console.error(await res.json());
+        }
+    };
 
     return (
         <Container>
@@ -106,8 +122,12 @@ const Edit: NextPage = (props: any) => {
                     Save
                 </Button>
 
-                <Button style={{ margin: "5px" }} variant="danger" onClick={onCancel}>
+                <Button style={{ margin: "5px" }} variant="primary" onClick={onCancel}>
                     Cancel
+                </Button>
+
+                <Button style={{ margin: "5px" }} variant="danger" onClick={onDelete}>
+                    Delete
                 </Button>
             </footer>
         </Container>

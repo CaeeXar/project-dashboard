@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { updateProject } from '../../js/database';
+import { deleteProject, updateProject } from '../../js/database';
 import type { Project, ProjectStatus } from '../../js/types';
 
 const prepareDescription = (desc: string) => {
@@ -12,18 +12,23 @@ const prepareDescription = (desc: string) => {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== "POST") {
-        res.status(405).send({ message: "Only POST allowed" });
-        return;
+
+    if (req.method === "POST") {
+        const project: Project = req.body;
+
+        // validating
+        project.description = prepareDescription(project.description);
+
+        return updateProject(project)
+            .then((data) => res.status(200).json(data))
+            .catch((err) => res.status(400).json(err));
     }
 
-    const project: Project = req.body;
+    if (req.method === "DELETE") {
+        const pid = req.body;
 
-    // validating
-    project.description = prepareDescription(project.description);
-
-    return updateProject(project)
-        .then((data) => res.status(200).json(data))
-        .catch((err) => res.status(400).json(err));
-
+        return deleteProject(pid)
+            .then((data) => res.status(200).json(data))
+            .catch((err) => res.status(400).json(err));
+    }
 }

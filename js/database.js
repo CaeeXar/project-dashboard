@@ -64,6 +64,16 @@ async function insertProject(project) {
     `);
 }
 
+async function deleteProject(pid) {
+    const { id } = pid;
+    const db = await openDb();
+
+    return db.run(`
+        DELETE FROM PROJECTS
+        WHERE id = ${id};
+    `);
+}
+
 const config = {
     openDb,
     migrate,
@@ -72,6 +82,7 @@ const config = {
     getProjectById,
     updateProject,
     insertProject,
+    deleteProject,
 }
 
 module.exports = config;
