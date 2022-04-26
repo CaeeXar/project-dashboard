@@ -1,7 +1,7 @@
 import type { NextPage, NextApiRequest } from 'next';
 import { ChangeEvent, useState, } from "react";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
-import type { Project, ProjectStatus } from './index';
+import type { Project, ProjectStatus } from '../js/types';
 import { getProjectById, getProjectStatus } from "../js/database";
 import { NextRouter, useRouter } from 'next/router';
 

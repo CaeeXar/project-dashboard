@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { updateProject } from '../../js/database';
-import { Project } from '../index'
+import type { Project, ProjectStatus } from '../../js/types';
 
 const prepareDescription = (desc: string) => {
     let newDesc = ``;

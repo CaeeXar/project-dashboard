@@ -6,23 +6,24 @@ import { useState, } from "react";
 import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } from "react-bootstrap";
 import SimpleBar from 'simplebar-react';
 import { getAllProjects, getProjectStatus } from "../js/database";
+import type { Project, ProjectStatus } from '../js/types';
 
-export type ProjectStatus = {
-  id: string,
-  status: string,
-  colorCode: string,
-};
+// export type ProjectStatus = {
+//   id: string,
+//   status: string,
+//   colorCode: string,
+// };
 
-export type Project = {
-  id: number,
-  title: string,
-  description: string,
-  logo: string | null,
-  version: string,
-  status: string,
-  statusId: string,
-  colorCode: string,
-};
+// export type Project = {
+//   id: number,
+//   title: string,
+//   description: string,
+//   logo: string | null,
+//   version: string,
+//   status: string,
+//   statusId: string,
+//   colorCode: string,
+// };
 
 function prepareDescription(description: string) {
   if (description.length > 100) description = description.substring(0, 100) + "...";

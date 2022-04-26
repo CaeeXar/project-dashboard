@@ -3,8 +3,8 @@ const sqlite = require("sqlite");
 
 async function openDb() {
     return sqlite.open({
-        // filename: process.env.DB_PATH,
-        filename: "D:\\sqlite\\DB\\project-dashboard.db",
+        filename: process.env.DB_PATH,
+        // filename: "D:\\sqlite\\DB\\project-dashboard.db",
         driver: sqlite3.Database
     });
 }
