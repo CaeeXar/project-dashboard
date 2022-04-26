@@ -39,15 +39,28 @@ async function updateProject(project) {
     const { id, title, description, version, logo, statusId } = project;
     const db = await openDb();
 
-    return db.run(`
+    let stmt = `
         UPDATE PROJECTS
         SET title = '${title}',
             description = '${description}',
-            --logo = ${logo},
+            logo = '${logo}',
             version = '${version}',
             statusId = '${statusId}'
         WHERE id = ${(id)}; 
-    `);
+    `;
+
+    if (!logo) {
+        stmt = `
+        UPDATE PROJECTS
+        SET title = '${title}',
+            description = '${description}',
+            version = '${version}',
+            statusId = '${statusId}'
+        WHERE id = ${(id)}; 
+    `;
+    }
+
+    return db.run(stmt);
 }
 
 async function insertProject(project) {

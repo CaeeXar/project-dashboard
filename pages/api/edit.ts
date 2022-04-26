@@ -12,7 +12,6 @@ const prepareDescription = (desc: string) => {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-
     if (req.method === "POST") {
         const project: Project = req.body;
 
