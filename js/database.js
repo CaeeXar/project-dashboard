@@ -35,7 +35,7 @@ async function getProjectById(id) {
 }
 
 async function updateProject(project) {
-    const { description, id, logo, statusId, title, version } = project;
+    const { id, title, description, version, logo, statusId } = project;
     const db = await openDb();
 
     return db.run(`
@@ -49,6 +49,21 @@ async function updateProject(project) {
     `);
 }
 
+async function insertProject(project) {
+    const { title, description, version, logo, statusId } = project;
+    const db = await openDb();
+
+    return db.run(`
+        INSERT INTO PROJECTS (title, description, version, logo, statusId) 
+        VALUES ('${title}',
+                '${description}',
+                '${version}',
+                NULL,
+                '${statusId}'
+        ); 
+    `);
+}
+
 const config = {
     openDb,
     migrate,
@@ -56,6 +71,7 @@ const config = {
     getAllProjects,
     getProjectById,
     updateProject,
+    insertProject,
 }
 
 module.exports = config;

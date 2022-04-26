@@ -1,29 +1,12 @@
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, } from "react";
 import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } from "react-bootstrap";
 import SimpleBar from 'simplebar-react';
-import { getAllProjects, getProjectStatus } from "../js/database";
-import type { Project, ProjectStatus } from '../js/types';
-
-// export type ProjectStatus = {
-//   id: string,
-//   status: string,
-//   colorCode: string,
-// };
-
-// export type Project = {
-//   id: number,
-//   title: string,
-//   description: string,
-//   logo: string | null,
-//   version: string,
-//   status: string,
-//   statusId: string,
-//   colorCode: string,
-// };
+import { getAllProjects } from "../js/database";
+import type { Project } from '../js/types';
 
 function prepareDescription(description: string) {
   if (description.length > 100) description = description.substring(0, 100) + "...";
@@ -50,6 +33,9 @@ const Dashboard: NextPage = (props: any) => {
   const onEdit = () => {
     router.push({ pathname: `/edit`, query: { id: (selected || {}).id } });
   };
+  const onAdd = () => {
+    router.push({ pathname: `/new`, query: {} });
+  };
 
   return (
     <Container>
@@ -61,10 +47,16 @@ const Dashboard: NextPage = (props: any) => {
         </Row>
 
         <Row >
-          <Col>
+          <Col sm="10" xs="10" md="10">
             <InputGroup>
               <Form.Control placeholder="Search..." onChange={(e) => onChange(e.target.value.toLowerCase())} />
             </InputGroup>
+          </Col>
+
+          <Col sm="2" xs="2" md="2">
+            <Button onClick={onAdd}>
+              <FontAwesomeIcon className="pointer" icon={faAdd} />
+            </Button>
           </Col>
         </Row>
       </div>

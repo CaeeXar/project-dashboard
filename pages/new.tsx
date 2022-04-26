@@ -1,8 +1,8 @@
 import type { NextPage, NextApiRequest } from 'next';
 import { ChangeEvent, useState, } from "react";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
-import type { Project, ProjectStatus } from '../js/types';
-import { getProjectById, getProjectStatus } from "../js/database";
+import type { ProjectStatus } from '../js/types';
+import { getProjectStatus } from "../js/database";
 import { NextRouter, useRouter } from 'next/router';
 
 function routeHome(router: NextRouter) {
@@ -19,16 +19,15 @@ function findStatusText(id: string, status: ProjectStatus[]) {
     return (status.find(s => s.id == id) || {}).status || 'NOT FOUND';
 }
 
-const Edit: NextPage = (props: any) => {
-    const PROJECT: Project = { ...props.PROJECT };
+const New: NextPage = (props: any) => {
     const PROJECT_STATUS: ProjectStatus[] = [...props.PROJECT_STATUS];
     const router = useRouter();
 
-    const [title, setTitle] = useState(PROJECT.title);
-    const [description, setDescription] = useState(PROJECT.description);
-    const [version, setVersion] = useState(PROJECT.version);
-    const [statusId, setStatusId] = useState(PROJECT.statusId);
-    const [status, setStatus] = useState(PROJECT.status);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [version, setVersion] = useState("");
+    const [statusId, setStatusId] = useState("");
+    const [status, setStatus] = useState("");
 
     const onStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setStatusId(event.target.value);
@@ -36,9 +35,9 @@ const Edit: NextPage = (props: any) => {
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { ...PROJECT, title, description, version, statusId, status };
+        const project = { title, description, version, statusId };
 
-        const res = await fetch('/api/edit', {
+        const res = await fetch('/api/new', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(project),
@@ -54,7 +53,7 @@ const Edit: NextPage = (props: any) => {
     return (
         <Container>
             <div style={{ padding: "25px", marginBottom: "10px" }}>
-                <h1>Editing "{PROJECT.title}":</h1>
+                <h1>Add new Project:</h1>
             </div>
 
             <Form>
@@ -93,12 +92,15 @@ const Edit: NextPage = (props: any) => {
 
                     <Col sm="4">
                         <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
+                            <option value={""} disabled hidden>Choose current status</option>
                             {PROJECT_STATUS.map(status => {
                                 return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
                             })}
                         </Form.Select>
                     </Col>
                 </Form.Group>
+
+
             </Form>
 
             <footer style={{ textAlign: "right" }}>
@@ -115,14 +117,11 @@ const Edit: NextPage = (props: any) => {
 };
 
 export async function getServerSideProps(context: NextApiRequest) {
-    const query = context.query;
-
     const PROJECT_STATUS: ProjectStatus[] = await getProjectStatus();
-    const PROJECT: Project = await getProjectById(query.id);
 
     return {
-        props: { PROJECT, PROJECT_STATUS },
+        props: { PROJECT_STATUS },
     }
 }
 
-export default Edit;
+export default New;

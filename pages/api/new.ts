@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { updateProject } from '../../js/database';
-import type { Project, ProjectStatus } from '../../js/types';
+import { insertProject } from '../../js/database';
+import type { Project } from '../../js/types';
 
 const prepareDescription = (desc: string) => {
     let newDesc = ``;
@@ -22,7 +22,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     // validating
     project.description = prepareDescription(project.description);
 
-    return updateProject(project)
+    return insertProject(project)
         .then((data) => res.status(200).json(data))
         .catch((err) => res.status(400).json(err));
 
