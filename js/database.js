@@ -4,6 +4,7 @@ const sqlite = require("sqlite");
 async function openDb() {
     return sqlite.open({
         filename: process.env.DB_PATH,
+        // filename: "/home/remote/production/project-dashboard.db",
         // filename: "D:\\sqlite\\DB\\project-dashboard.db",
         driver: sqlite3.Database
     });
