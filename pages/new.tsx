@@ -1,6 +1,6 @@
 import type { NextPage, NextApiRequest } from 'next';
 import { ChangeEvent, useState, } from "react";
-import { Col, Container, Row, Form, Button } from "react-bootstrap";
+import { Col, Container, Row, Form, Button, Image } from "react-bootstrap";
 import type { ProjectStatus } from '../js/types';
 import { getProjectStatus } from "../js/database";
 import { NextRouter, useRouter } from 'next/router';
@@ -28,14 +28,35 @@ const New: NextPage = (props: any) => {
     const [version, setVersion] = useState("");
     const [statusId, setStatusId] = useState("");
     const [status, setStatus] = useState("");
+    const [logo, setLogo] = useState(null);
 
+    const onLogoChange = async (event: ChangeEvent) => {
+        const target = event.target as HTMLInputElement;
+        const files = target.files as FileList;
+        const file = files[0] as File;
+
+        const body = new FormData();
+        body.append('file', file);
+
+        const res = await fetch('/api/image', {
+            method: 'POST',
+            body,
+        });
+
+        if (res.status === 200) {
+            let saved = await res.json();
+            setLogo(saved.newFilename);
+        } else {
+            console.error(await res.json());
+        }
+    };
     const onStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setStatusId(event.target.value);
         setStatus(findStatusText(event.target.value, PROJECT_STATUS));
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { title, description, version, statusId };
+        const project = { title, description, version, statusId, logo };
 
         const res = await fetch('/api/new', {
             method: 'POST',
@@ -63,7 +84,21 @@ const New: NextPage = (props: any) => {
                     </Form.Label>
 
                     <Col sm="10">
-                        <Form.Control value={title} placeholder="..." onChange={e => setTitle(e.target.value)} />
+                        <Form.Control value={title} onChange={e => setTitle(e.target.value)} />
+                    </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Logo
+                    </Form.Label>
+
+                    <Col sm="8">
+                        <Form.Control accept="image/*" type="file" onChange={onLogoChange} />
+                    </Col>
+
+                    <Col sm="2">
+                        {!!logo ? <Image src={logo} className="img" /> : null}
                     </Col>
                 </Form.Group>
 

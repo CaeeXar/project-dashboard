@@ -67,24 +67,37 @@ async function insertProject(project) {
     const { title, description, version, logo, statusId } = project;
     const db = await openDb();
 
-    return db.run(`
+    let stmt = `
         INSERT INTO PROJECTS (title, description, version, logo, statusId) 
         VALUES ('${title}',
                 '${description}',
                 '${version}',
-                NULL,
+                '${logo}',
                 '${statusId}'
         ); 
-    `);
+    `;
+
+    if (!logo) {
+        stmt = `
+            INSERT INTO PROJECTS (title, description, version, logo, statusId) 
+            VALUES ('${title}',
+                    '${description}',
+                    '${version}',
+                    NULL,
+                    '${statusId}'
+            ); 
+        `;
+    }
+
+    return db.run(stmt);
 }
 
 async function deleteProject(pid) {
-    const { id } = pid;
     const db = await openDb();
 
     return db.run(`
         DELETE FROM PROJECTS
-        WHERE id = ${id};
+        WHERE id = ${pid};
     `);
 }
 

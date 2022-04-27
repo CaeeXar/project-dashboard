@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { deleteProject, updateProject } from '../../js/database';
-import type { Project, ProjectStatus } from '../../js/types';
+import type { Project } from '../../js/types';
+import fs from "fs";
 
 const prepareDescription = (desc: string) => {
     let newDesc = ``;
@@ -12,9 +13,9 @@ const prepareDescription = (desc: string) => {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method === "POST") {
-        const project: Project = req.body;
+    const project: Project = req.body;
 
+    if (req.method === "POST") {
         // validating
         project.description = prepareDescription(project.description);
 
@@ -24,9 +25,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (req.method === "DELETE") {
-        const pid = req.body;
+        if (!!project.logo) {
+            try { fs.unlinkSync(`./public/${project.logo}`) }
+            catch { console.error("Failed to delete logo!") };
+        }
 
-        return deleteProject(pid)
+        return deleteProject(project.id)
             .then((data) => res.status(200).json(data))
             .catch((err) => res.status(400).json(err));
     }

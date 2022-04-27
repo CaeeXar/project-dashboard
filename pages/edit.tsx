@@ -30,7 +30,6 @@ const Edit: NextPage = (props: any) => {
     const [statusId, setStatusId] = useState(PROJECT.statusId);
     const [status, setStatus] = useState(PROJECT.status);
     const [logo, setLogo] = useState(PROJECT.logo);
-    const [loading, setLoading] = useState(false);
 
     const onLogoChange = async (event: ChangeEvent) => {
         const target = event.target as HTMLInputElement;
@@ -74,12 +73,12 @@ const Edit: NextPage = (props: any) => {
     };
     const onDelete = async () => {
         if (!confirm("Are you sure you want to delete this project?")) return;
-        const pid = { id: PROJECT.id };
+        const project = { ...PROJECT, title, description, version, statusId, status, logo };
 
         const res = await fetch('/api/edit', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(pid),
+            body: JSON.stringify(project),
         });
 
         if (res.status === 200) {
@@ -88,10 +87,6 @@ const Edit: NextPage = (props: any) => {
             console.error(await res.json());
         }
     };
-
-    if (loading) {
-        return <h1>Lädt...</h1>
-    }
 
     return (
         <Container>
