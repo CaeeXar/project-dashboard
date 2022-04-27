@@ -30,7 +30,7 @@ const Edit: NextPage = (props: any) => {
     const [statusId, setStatusId] = useState(PROJECT.statusId);
     const [status, setStatus] = useState(PROJECT.status);
     const [logo, setLogo] = useState(PROJECT.logo);
-    const [externalPath, setExternalPath] = useState(PROJECT.externalPath);
+    const [externalPath, setExternalPath] = useState<string | null>(PROJECT.externalPath);
 
     const onLogoChange = async (event: ChangeEvent) => {
         const target = event.target as HTMLInputElement;
@@ -136,7 +136,7 @@ const Edit: NextPage = (props: any) => {
                     </Form.Label>
 
                     <Col sm='10'>
-                        <Form.Control value={externalPath} onChange={e => setExternalPath(e.target.value)} />
+                        <Form.Control value={externalPath || ''} onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 

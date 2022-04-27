@@ -119,7 +119,7 @@ const New: NextPage = (props: any) => {
                     </Form.Label>
 
                     <Col sm='10'>
-                        <Form.Control value={externalPath || ''} placeholder='...' onChange={e => setExternalPath(e.target.value)} />
+                        <Form.Control value={externalPath || ''} onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 
@@ -129,7 +129,7 @@ const New: NextPage = (props: any) => {
                     </Form.Label>
 
                     <Col sm='4'>
-                        <Form.Control value={version} placeholder='...' onChange={e => setVersion(e.target.value)} />
+                        <Form.Control value={version} onChange={e => setVersion(e.target.value)} />
                     </Col>
 
                     <Form.Label column sm='2'>
