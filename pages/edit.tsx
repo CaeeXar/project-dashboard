@@ -116,7 +116,7 @@ const Edit: NextPage = (props: any) => {
                     </Col>
 
                     <Col sm='2'>
-                        {!!logo ? <Image src={logo} className='img' /> : null}
+                        {!!logo ? <Image alt='Logo' src={logo} className='img' /> : null}
                     </Col>
                 </Form.Group>
 

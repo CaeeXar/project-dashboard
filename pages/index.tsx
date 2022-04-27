@@ -101,7 +101,7 @@ const Dashboard: NextPage = (props: any) => {
         {!!selected ?
           <>
             <Modal.Header style={{ height: '71px' }}>
-              <Image src={selected.logo || undefined} width='38px' />
+              <Image alt='Logo' src={selected.logo || undefined} width='38px' />
               <Modal.Title style={{ marginLeft: '10px' }}>{selected.title}</Modal.Title>
               <CloseButton variant='white' onClick={handleClose} />
             </Modal.Header>
