@@ -29,6 +29,7 @@ const New: NextPage = (props: any) => {
     const [statusId, setStatusId] = useState("");
     const [status, setStatus] = useState("");
     const [logo, setLogo] = useState(null);
+    const [externalPath, setExternalPath] = useState<string | null>(null);
 
     const onLogoChange = async (event: ChangeEvent) => {
         const target = event.target as HTMLInputElement;
@@ -56,7 +57,7 @@ const New: NextPage = (props: any) => {
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { title, description, version, statusId, logo };
+        const project = { title, description, version, statusId, logo, externalPath };
 
         const res = await fetch('/api/new', {
             method: 'POST',
@@ -109,6 +110,16 @@ const New: NextPage = (props: any) => {
 
                     <Col sm="10">
                         <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Project-Path
+                    </Form.Label>
+
+                    <Col sm="10">
+                        <Form.Control value={externalPath || ""} placeholder="..." onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 

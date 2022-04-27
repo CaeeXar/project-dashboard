@@ -43,22 +43,12 @@ async function updateProject(project) {
         UPDATE PROJECTS
         SET title = '${title}',
             description = '${description}',
-            logo = '${logo}',
+            ${!!logo ? `logo = '${logo}',` : ``}
             version = '${version}',
-            statusId = '${statusId}'
-        WHERE id = ${(id)}; 
+            statusId = '${statusId}',
+            ${!!externalPath ? `externalPath = '${externalPath}'` : ``}
+        WHERE id = ${id}; 
     `;
-
-    if (!logo) {
-        stmt = `
-        UPDATE PROJECTS
-        SET title = '${title}',
-            description = '${description}',
-            version = '${version}',
-            statusId = '${statusId}'
-        WHERE id = ${(id)}; 
-    `;
-    }
 
     return db.run(stmt);
 }
@@ -68,26 +58,15 @@ async function insertProject(project) {
     const db = await openDb();
 
     let stmt = `
-        INSERT INTO PROJECTS (title, description, version, logo, statusId) 
+        INSERT INTO PROJECTS (title, description, version, logo, statusId, externalPath) 
         VALUES ('${title}',
                 '${description}',
                 '${version}',
-                '${logo}',
-                '${statusId}'
+                ${!!logo ? `'${logo}',` : `NULL,`}
+                '${statusId}',
+                ${!!externalPath ? `'${externalPath}'` : `NULL`}
         ); 
     `;
-
-    if (!logo) {
-        stmt = `
-            INSERT INTO PROJECTS (title, description, version, logo, statusId) 
-            VALUES ('${title}',
-                    '${description}',
-                    '${version}',
-                    NULL,
-                    '${statusId}'
-            ); 
-        `;
-    }
 
     return db.run(stmt);
 }

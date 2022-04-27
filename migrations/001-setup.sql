@@ -29,11 +29,11 @@ INSERT INTO PROJECT_STATUS (id, status, colorCode)
 INSERT INTO PROJECTS (title, description, logo, version, statusId, externalPath) 
     VALUES (
         'Project-Dashboard', 
-        'A custom dashboard for visualizing all my diffrent projects.',
+        'A custom dashboard for visualizing all my different projects.',
          NULL, 
          '1.0.0', 
          'STAB', 
-         '/new'
+         '/'
     );
 INSERT INTO PROJECTS (title, description, logo, version, statusId, externalPath) 
     VALUES (
@@ -50,7 +50,7 @@ INSERT INTO PROJECTS (title, description, logo, version, statusId, externalPath)
         'A tool to manage everything for your RC-experience. Get yourself an overview of all your LiPo''s, builds and their settings, etc.', 
         NULL, 
         '0.0.1', 
-        'WORK', 
+        'IDEA', 
         NULL
     );
 

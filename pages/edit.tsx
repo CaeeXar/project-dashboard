@@ -30,6 +30,7 @@ const Edit: NextPage = (props: any) => {
     const [statusId, setStatusId] = useState(PROJECT.statusId);
     const [status, setStatus] = useState(PROJECT.status);
     const [logo, setLogo] = useState(PROJECT.logo);
+    const [externalPath, setExternalPath] = useState(PROJECT.externalPath);
 
     const onLogoChange = async (event: ChangeEvent) => {
         const target = event.target as HTMLInputElement;
@@ -57,7 +58,7 @@ const Edit: NextPage = (props: any) => {
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { ...PROJECT, title, description, version, statusId, status, logo };
+        const project = { ...PROJECT, title, description, version, statusId, status, logo, externalPath };
 
         const res = await fetch('/api/edit', {
             method: 'POST',
@@ -73,7 +74,7 @@ const Edit: NextPage = (props: any) => {
     };
     const onDelete = async () => {
         if (!confirm("Are you sure you want to delete this project?")) return;
-        const project = { ...PROJECT, title, description, version, statusId, status, logo };
+        const project = { ...PROJECT, title, description, version, statusId, status, logo, externalPath };
 
         const res = await fetch('/api/edit', {
             method: 'DELETE',
@@ -126,6 +127,16 @@ const Edit: NextPage = (props: any) => {
 
                     <Col sm="10">
                         <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Project-Path
+                    </Form.Label>
+
+                    <Col sm="10">
+                        <Form.Control value={externalPath} placeholder="..." onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 

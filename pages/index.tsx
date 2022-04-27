@@ -1,6 +1,7 @@
 import { faAdd, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, } from "react";
 import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image, CloseButton } from "react-bootstrap";
@@ -99,7 +100,7 @@ const Dashboard: NextPage = (props: any) => {
       <Modal show={show} onHide={handleClose}>
         {!!selected ?
           <>
-            <Modal.Header>
+            <Modal.Header style={{ height: "71px" }}>
               <Image src={selected.logo || undefined} width="38px" />
               <Modal.Title style={{ marginLeft: "10px" }}>{selected.title}</Modal.Title>
               <CloseButton variant='white' onClick={handleClose} />
@@ -113,7 +114,7 @@ const Dashboard: NextPage = (props: any) => {
               </div>
             </Modal.Body>
 
-            <Modal.Footer>
+            <Modal.Footer style={{ height: "71px" }}>
               <small style={{ position: "absolute", left: "0.75rem" }}>
                 Version: {selected.version} <br />
                 Status: &nbsp;
@@ -122,9 +123,15 @@ const Dashboard: NextPage = (props: any) => {
                 </span>
               </small>
 
-              <Button variant="secondary" onClick={handleClose}>
-                Goto <b>{selected.title}</b>
-              </Button>
+              {!!selected.externalPath ?
+                <Button variant="secondary" onClick={handleClose}>
+                  <span>Goto&nbsp;</span>
+
+                  <Link href={selected.externalPath}>
+                    <b>{selected.title}</b>
+                  </Link>
+                </Button>
+                : null}
             </Modal.Footer>
           </>
           : null}
