@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import formidable, { File } from "formidable";
-import fs from "fs";
+import formidable, { File } from 'formidable';
+import fs from 'fs';
 
 export const config = {
     api: {
@@ -9,7 +9,7 @@ export const config = {
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== 'POST') return res.status(400).send("Only POST!");
+    if (req.method !== 'POST') return res.status(400).send('Only POST!');
 
     const form = new formidable.IncomingForm();
     return form.parse(req, async function (err, fields, files) {
@@ -17,13 +17,13 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
         if (Array.isArray(file)) file = file[0];
         if (!file || !file.originalFilename)
-            return res.status(400).json({ message: "Error during upload!" });;
+            return res.status(400).json({ message: 'Error during upload!' });;
 
-        // const split = file.originalFilename.split(".");
+        // const split = file.originalFilename.split('.');
         // const ext = split[split.length - 1];
         const timestamp = new Date().getTime();
         const data = fs.readFileSync(file.filepath);
-        const newFilename = timestamp + "_" + file.originalFilename;
+        const newFilename = timestamp + '_' + file.originalFilename;
 
         fs.writeFileSync(`./public/${newFilename}`, data);
         await fs.unlinkSync(file.filepath);

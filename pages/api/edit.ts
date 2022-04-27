@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { deleteProject, updateProject } from '../../js/database';
 import type { Project } from '../../js/types';
-import fs from "fs";
+import fs from 'fs';
 
 const prepareDescription = (desc: string) => {
     let newDesc = ``;
-    desc.split("").forEach(char => {
+    desc.split('').forEach(char => {
         if (char === `'`) newDesc += `''`;
         else newDesc += char;
     });
@@ -15,7 +15,7 @@ const prepareDescription = (desc: string) => {
 export default (req: NextApiRequest, res: NextApiResponse) => {
     const project: Project = req.body;
 
-    if (req.method === "POST") {
+    if (req.method === 'POST') {
         // validating
         project.description = prepareDescription(project.description);
 
@@ -24,10 +24,10 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
             .catch((err) => res.status(400).json(err));
     }
 
-    if (req.method === "DELETE") {
+    if (req.method === 'DELETE') {
         if (!!project.logo) {
             try { fs.unlinkSync(`./public/${project.logo}`) }
-            catch { console.error("Failed to delete logo!") };
+            catch { console.error('Failed to delete logo!') };
         }
 
         return deleteProject(project.id)

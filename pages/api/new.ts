@@ -4,7 +4,7 @@ import type { Project } from '../../js/types';
 
 const prepareDescription = (desc: string) => {
     let newDesc = ``;
-    desc.split("").forEach(char => {
+    desc.split('').forEach(char => {
         if (char === `'`) newDesc += `''`;
         else newDesc += char;
     });
@@ -12,8 +12,8 @@ const prepareDescription = (desc: string) => {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== "POST") {
-        res.status(405).send({ message: "Only POST allowed" });
+    if (req.method !== 'POST') {
+        res.status(405).send({ message: 'Only POST allowed' });
         return;
     }
 

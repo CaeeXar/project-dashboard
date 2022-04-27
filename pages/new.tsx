@@ -1,13 +1,13 @@
 import type { NextPage, NextApiRequest } from 'next';
-import { ChangeEvent, useState, } from "react";
-import { Col, Container, Row, Form, Button, Image } from "react-bootstrap";
+import { ChangeEvent, useState, } from 'react';
+import { Col, Container, Row, Form, Button, Image } from 'react-bootstrap';
 import type { ProjectStatus } from '../js/types';
-import { getProjectStatus } from "../js/database";
+import { getProjectStatus } from '../js/database';
 import { NextRouter, useRouter } from 'next/router';
 
 function routeHome(router: NextRouter) {
     router.push({
-        pathname: "/",
+        pathname: '/',
     });
 }
 
@@ -23,11 +23,11 @@ const New: NextPage = (props: any) => {
     const PROJECT_STATUS: ProjectStatus[] = [...props.PROJECT_STATUS];
     const router = useRouter();
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [version, setVersion] = useState("");
-    const [statusId, setStatusId] = useState("");
-    const [status, setStatus] = useState("");
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [version, setVersion] = useState('');
+    const [statusId, setStatusId] = useState('');
+    const [status, setStatus] = useState('');
     const [logo, setLogo] = useState(null);
     const [externalPath, setExternalPath] = useState<string | null>(null);
 
@@ -74,71 +74,71 @@ const New: NextPage = (props: any) => {
 
     return (
         <Container>
-            <div style={{ padding: "25px", marginBottom: "10px" }}>
+            <div style={{ padding: '25px', marginBottom: '10px' }}>
                 <h1>Add new Project:</h1>
             </div>
 
             <Form>
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Title
                     </Form.Label>
 
-                    <Col sm="10">
+                    <Col sm='10'>
                         <Form.Control value={title} onChange={e => setTitle(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Logo
                     </Form.Label>
 
-                    <Col sm="8">
-                        <Form.Control accept="image/*" type="file" onChange={onLogoChange} />
+                    <Col sm='8'>
+                        <Form.Control accept='image/*' type='file' onChange={onLogoChange} />
                     </Col>
 
-                    <Col sm="2">
-                        {!!logo ? <Image src={logo} className="img" /> : null}
+                    <Col sm='2'>
+                        {!!logo ? <Image src={logo} className='img' /> : null}
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Description
                     </Form.Label>
 
-                    <Col sm="10">
-                        <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    <Col sm='10'>
+                        <Form.Control as='textarea' rows={2} value={description} onChange={e => setDescription(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Project-Path
                     </Form.Label>
 
-                    <Col sm="10">
-                        <Form.Control value={externalPath || ""} placeholder="..." onChange={e => setExternalPath(e.target.value)} />
+                    <Col sm='10'>
+                        <Form.Control value={externalPath || ''} placeholder='...' onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Version
                     </Form.Label>
 
-                    <Col sm="4">
-                        <Form.Control value={version} placeholder="..." onChange={e => setVersion(e.target.value)} />
+                    <Col sm='4'>
+                        <Form.Control value={version} placeholder='...' onChange={e => setVersion(e.target.value)} />
                     </Col>
 
-                    <Form.Label column sm="2">
+                    <Form.Label column sm='2'>
                         Status
                     </Form.Label>
 
-                    <Col sm="4">
+                    <Col sm='4'>
                         <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
-                            <option value={""} disabled hidden>Choose current status</option>
+                            <option value={''} disabled hidden>Choose current status</option>
                             {PROJECT_STATUS.map(status => {
                                 return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
                             })}
@@ -149,12 +149,12 @@ const New: NextPage = (props: any) => {
 
             </Form>
 
-            <footer style={{ textAlign: "right" }}>
-                <Button style={{ margin: "5px" }} variant="success" onClick={onSave}>
+            <footer style={{ textAlign: 'right' }}>
+                <Button style={{ margin: '5px' }} variant='success' onClick={onSave}>
                     Save
                 </Button>
 
-                <Button style={{ margin: "5px" }} variant="danger" onClick={onCancel}>
+                <Button style={{ margin: '5px' }} variant='danger' onClick={onCancel}>
                     Cancel
                 </Button>
             </footer>
