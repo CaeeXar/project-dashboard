@@ -13,4 +13,5 @@ export type Project = {
     status: string,
     statusId: string,
     colorCode: string,
+    externalPath: string,
 };
