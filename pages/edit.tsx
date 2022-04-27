@@ -157,7 +157,7 @@ const Edit: NextPage = (props: any) => {
                     Save
                 </Button>
 
-                <Button style={{ margin: "5px" }} variant="primary" onClick={onCancel}>
+                <Button style={{ margin: "5px" }} variant="secondary" onClick={onCancel}>
                     Cancel
                 </Button>
 

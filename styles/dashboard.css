@@ -1,10 +1,10 @@
 body {
-    background-color: #FFEBEE;
+    background-color: #010409;
 }
 
 .container {
     text-align: center;
-    color: #424242;
+    color: #c6ced5;
 }
 
 .btn-primary,
@@ -14,9 +14,9 @@ body {
 .btn-primary.active,
 .btn-primary:active,
 .show>.btn-primary.dropdown-toggle {
-    background-color: #424242;
-    border-color: #424242;
-    color: #FFEBEE;
+    background-color: #0d1117;
+    border-color: #0d1117;
+    color: #c6ced5;
 }
 
 .btn-check:focus+.btn-primary,
@@ -26,34 +26,34 @@ body {
 .btn-primary.active:focus,
 .btn-primary:active:focus,
 .show>.btn-primary.dropdown-toggle:focus {
-    background-color: #424242;
-    border-color: #424242;
+    background-color: #0d1117;
+    border-color: #0d1117;
     box-shadow: 0 0 0 0.25rem #a0a0a0;
-    color: #FFEBEE;
+    color: #c6ced5;
 }
 
 .form-control {
-    color: #424242;
+    color: #0d1117;
 }
 
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem #a0a0a0;
-    color: #424242;
+    color: #0d1117;
 }
 
 .card {
-    background-color: #424242;
-    color: #FFEBEE;
+    background-color: #0d1117;
+    color: #c6ced5;
     max-height: 300px;
 }
 
 hr {
     margin: 20px 0px;
-    background-color: #424242;
+    background-color: #0d1117;
 }
 
 .simplebar-scrollbar::before {
-    background-color: #424242;
+    background-color: #0d1117;
 }
 
 .simplebar-horizontal {
@@ -69,9 +69,14 @@ hr {
 }
 
 .card-footer {
-    border-color: #FFEBEE;
+    border-color: #c6ced5;
 }
 
 .pointer:hover {
     cursor: pointer;
+}
+
+.modal-content {
+    background: #0d1117;
+    color: #c6ced5;
 }

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, } from "react";
-import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image } from "react-bootstrap";
+import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image, CloseButton } from "react-bootstrap";
 import SimpleBar from 'simplebar-react';
 import { getAllProjects } from "../js/database";
 import type { Project } from '../js/types';
@@ -68,7 +68,7 @@ const Dashboard: NextPage = (props: any) => {
               <Card onClick={e => onProjectSelection(project)}>
                 <Card.Body>
                   <Card.Title>
-                    <Card.Img src={project.logo || undefined} style={{ margin: "auto", textAlign: "center", width: "50px" }} />
+                    <Card.Img src={project.logo || undefined} style={{ margin: "auto", textAlign: "center", width: "24px" }} />
                     {" " + project.title}
                   </Card.Title>
 
@@ -99,9 +99,10 @@ const Dashboard: NextPage = (props: any) => {
       <Modal show={show} onHide={handleClose}>
         {!!selected ?
           <>
-            <Modal.Header closeButton>
-              <Image src={selected.logo || undefined} width="50px" />
+            <Modal.Header>
+              <Image src={selected.logo || undefined} width="38px" />
               <Modal.Title style={{ marginLeft: "10px" }}>{selected.title}</Modal.Title>
+              <CloseButton variant='white' onClick={handleClose} />
             </Modal.Header>
 
             <Modal.Body>
