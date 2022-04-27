@@ -1,13 +1,13 @@
 import type { NextPage, NextApiRequest } from 'next';
-import React, { ChangeEvent, useState, } from "react";
-import { Col, Container, Row, Form, Button, Image } from "react-bootstrap";
+import React, { ChangeEvent, useState, } from 'react';
+import { Col, Container, Row, Form, Button, Image } from 'react-bootstrap';
 import type { Project, ProjectStatus } from '../js/types';
-import { getProjectById, getProjectStatus } from "../js/database";
+import { getProjectById, getProjectStatus } from '../js/database';
 import { NextRouter, useRouter } from 'next/router';
 
 function routeHome(router: NextRouter) {
     router.push({
-        pathname: "/",
+        pathname: '/',
     });
 }
 
@@ -73,7 +73,7 @@ const Edit: NextPage = (props: any) => {
         }
     };
     const onDelete = async () => {
-        if (!confirm("Are you sure you want to delete this project?")) return;
+        if (!confirm('Are you sure you want to delete this project?')) return;
         const project = { ...PROJECT, title, description, version, statusId, status, logo, externalPath };
 
         const res = await fetch('/api/edit', {
@@ -91,69 +91,69 @@ const Edit: NextPage = (props: any) => {
 
     return (
         <Container>
-            <div style={{ padding: "25px", marginBottom: "10px" }}>
-                <h1>Editing "{PROJECT.title}":</h1>
+            <div style={{ padding: '25px', marginBottom: '10px' }}>
+                <h1>Editing '{PROJECT.title}':</h1>
             </div>
 
             <Form>
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Title
                     </Form.Label>
 
-                    <Col sm="10">
-                        <Form.Control value={title} placeholder="..." onChange={e => setTitle(e.target.value)} />
+                    <Col sm='10'>
+                        <Form.Control value={title} placeholder='...' onChange={e => setTitle(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Logo
                     </Form.Label>
 
-                    <Col sm="8">
-                        <Form.Control accept="image/*" type="file" onChange={onLogoChange} />
+                    <Col sm='8'>
+                        <Form.Control accept='image/*' type='file' onChange={onLogoChange} />
                     </Col>
 
-                    <Col sm="2">
-                        {!!logo ? <Image src={logo} className="img" /> : null}
+                    <Col sm='2'>
+                        {!!logo ? <Image src={logo} className='img' /> : null}
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Description
                     </Form.Label>
 
-                    <Col sm="10">
-                        <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    <Col sm='10'>
+                        <Form.Control as='textarea' rows={2} value={description} onChange={e => setDescription(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Project-Path
                     </Form.Label>
 
-                    <Col sm="10">
-                        <Form.Control value={externalPath} placeholder="..." onChange={e => setExternalPath(e.target.value)} />
+                    <Col sm='10'>
+                        <Form.Control value={externalPath} placeholder='...' onChange={e => setExternalPath(e.target.value)} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
+                <Form.Group as={Row} className='mb-3'>
+                    <Form.Label column sm='2'>
                         Version
                     </Form.Label>
 
-                    <Col sm="4">
-                        <Form.Control value={version} placeholder="..." onChange={e => setVersion(e.target.value)} />
+                    <Col sm='4'>
+                        <Form.Control value={version} placeholder='...' onChange={e => setVersion(e.target.value)} />
                     </Col>
 
-                    <Form.Label column sm="2">
+                    <Form.Label column sm='2'>
                         Status
                     </Form.Label>
 
-                    <Col sm="4">
+                    <Col sm='4'>
                         <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
                             {PROJECT_STATUS.map(status => {
                                 return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
@@ -163,16 +163,16 @@ const Edit: NextPage = (props: any) => {
                 </Form.Group>
             </Form>
 
-            <footer style={{ textAlign: "right" }}>
-                <Button style={{ margin: "5px" }} variant="success" onClick={onSave}>
+            <footer style={{ textAlign: 'right' }}>
+                <Button style={{ margin: '5px' }} variant='success' onClick={onSave}>
                     Save
                 </Button>
 
-                <Button style={{ margin: "5px" }} variant="secondary" onClick={onCancel}>
+                <Button style={{ margin: '5px' }} variant='secondary' onClick={onCancel}>
                     Cancel
                 </Button>
 
-                <Button style={{ margin: "5px" }} variant="danger" onClick={onDelete}>
+                <Button style={{ margin: '5px' }} variant='danger' onClick={onDelete}>
                     Delete
                 </Button>
             </footer>
