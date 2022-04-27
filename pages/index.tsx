@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, } from "react";
-import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image, CloseButton } from "react-bootstrap";
+import { useState, } from 'react';
+import { Col, Container, Row, Form, InputGroup, Card, Modal, Button, Image, CloseButton } from 'react-bootstrap';
 import SimpleBar from 'simplebar-react';
-import { getAllProjects } from "../js/database";
+import { getAllProjects } from '../js/database';
 import type { Project } from '../js/types';
 
 function prepareDescription(description: string) {
-  if (description.length > 100) description = description.substring(0, 100) + "...";
+  if (description.length > 100) description = description.substring(0, 100) + '...';
   return description;
 }
 
@@ -40,7 +40,7 @@ const Dashboard: NextPage = (props: any) => {
 
   return (
     <Container>
-      <div style={{ maxHeight: "30vh", marginBottom: "30px" }}>
+      <div style={{ maxHeight: '30vh', marginBottom: '30px' }}>
         <Row>
           <Col>
             <h1>Project-Dashboard</h1>
@@ -48,29 +48,29 @@ const Dashboard: NextPage = (props: any) => {
         </Row>
 
         <Row >
-          <Col sm="10" xs="10" md="10">
+          <Col sm='10' xs='10' md='10'>
             <InputGroup>
-              <Form.Control placeholder="Search..." onChange={(e) => onChange(e.target.value.toLowerCase())} />
+              <Form.Control placeholder='Search...' onChange={(e) => onChange(e.target.value.toLowerCase())} />
             </InputGroup>
           </Col>
 
-          <Col sm="2" xs="2" md="2">
+          <Col sm='2' xs='2' md='2'>
             <Button onClick={onAdd}>
-              <FontAwesomeIcon className="pointer" icon={faAdd} />
+              <FontAwesomeIcon className='pointer' icon={faAdd} />
             </Button>
           </Col>
         </Row>
       </div>
 
-      <SimpleBar forceVisible="y" autoHide={false} >
-        <Row className="g-2">
+      <SimpleBar forceVisible='y' autoHide={false} >
+        <Row className='g-2'>
           {filteredProjects.map((project) => (
             <Col sm='12' md='6' lg='6' key={project.id}>
               <Card onClick={e => onProjectSelection(project)}>
                 <Card.Body>
                   <Card.Title style={{ height: '27px' }}>
-                    <Card.Img src={project.logo || undefined} style={{ margin: "auto", textAlign: "center", width: "24px" }} />
-                    {" " + project.title}
+                    <Card.Img src={project.logo || undefined} style={{ margin: 'auto', textAlign: 'center', width: '24px' }} />
+                    {' ' + project.title}
                   </Card.Title>
 
                   <Card.Text>{prepareDescription(project.description)}</Card.Text>
@@ -100,22 +100,22 @@ const Dashboard: NextPage = (props: any) => {
       <Modal show={show} onHide={handleClose}>
         {!!selected ?
           <>
-            <Modal.Header style={{ height: "71px" }}>
-              <Image src={selected.logo || undefined} width="38px" />
-              <Modal.Title style={{ marginLeft: "10px" }}>{selected.title}</Modal.Title>
+            <Modal.Header style={{ height: '71px' }}>
+              <Image src={selected.logo || undefined} width='38px' />
+              <Modal.Title style={{ marginLeft: '10px' }}>{selected.title}</Modal.Title>
               <CloseButton variant='white' onClick={handleClose} />
             </Modal.Header>
 
             <Modal.Body>
               {selected.description}
 
-              <div style={{ textAlign: "center", marginTop: "10px" }} >
-                <FontAwesomeIcon className="pointer" icon={faEdit} onClick={onEdit} />
+              <div style={{ textAlign: 'center', marginTop: '10px' }} >
+                <FontAwesomeIcon className='pointer' icon={faEdit} onClick={onEdit} />
               </div>
             </Modal.Body>
 
-            <Modal.Footer style={{ height: "71px" }}>
-              <small style={{ position: "absolute", left: "0.75rem" }}>
+            <Modal.Footer style={{ height: '71px' }}>
+              <small style={{ position: 'absolute', left: '0.75rem' }}>
                 Version: {selected.version} <br />
                 Status: &nbsp;
                 <span style={{ color: selected.colorCode }}>
@@ -124,7 +124,7 @@ const Dashboard: NextPage = (props: any) => {
               </small>
 
               {!!selected.externalPath ?
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant='secondary' onClick={handleClose}>
                   <span>Goto&nbsp;</span>
 
                   <Link href={selected.externalPath}>
