@@ -65,10 +65,10 @@ const Dashboard: NextPage = (props: any) => {
       <SimpleBar forceVisible="y" autoHide={false} >
         <Row className="g-2">
           {filteredProjects.map((project) => (
-            <Col sm={6} md={6} key={project.id}>
+            <Col sm='12' md='6' lg='6' key={project.id}>
               <Card onClick={e => onProjectSelection(project)}>
                 <Card.Body>
-                  <Card.Title>
+                  <Card.Title style={{ height: '27px' }}>
                     <Card.Img src={project.logo || undefined} style={{ margin: "auto", textAlign: "center", width: "24px" }} />
                     {" " + project.title}
                   </Card.Title>
@@ -76,7 +76,7 @@ const Dashboard: NextPage = (props: any) => {
                   <Card.Text>{prepareDescription(project.description)}</Card.Text>
                 </Card.Body>
 
-                <Card.Footer>
+                <Card.Footer style={{ height: '41px', overflow: 'hidden' }}>
                   <Row>
                     <Col>
                       <small>Version: {project.version}</small>
