@@ -55,7 +55,7 @@ const Dashboard: NextPage = (props: any) => {
           </Col>
 
           <Col sm='2' xs='2' md='2'>
-            <Button onClick={onAdd}>
+            <Button variant='secondary' onClick={onAdd}>
               <FontAwesomeIcon className='pointer' icon={faAdd} />
             </Button>
           </Col>
@@ -101,7 +101,7 @@ const Dashboard: NextPage = (props: any) => {
         {!!selected ?
           <>
             <Modal.Header style={{ height: '71px' }}>
-              <Image alt='Logo' src={selected.logo || undefined} width='38px' />
+              {selected.logo && <Image alt='Logo' src={selected.logo || undefined} width='38px' />}
               <Modal.Title style={{ marginLeft: '10px' }}>{selected.title}</Modal.Title>
               <CloseButton variant='white' onClick={handleClose} />
             </Modal.Header>
@@ -124,7 +124,7 @@ const Dashboard: NextPage = (props: any) => {
               </small>
 
               {!!selected.externalPath ?
-                <Button variant='secondary' onClick={handleClose}>
+                <Button onClick={handleClose}>
                   <span>Goto&nbsp;</span>
 
                   <Link href={selected.externalPath}>

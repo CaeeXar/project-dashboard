@@ -1,5 +1,16 @@
 @import url("bootstrap/dist/css/bootstrap.min.css");
 @import url('simplebar/dist/simplebar.min.css');
+@import url("./dashboard.css");
+@import url('./edit.css');
+@import url('./form.css');
+
+/*
+  primary background: #222831
+  secondary background: #393E46
+  font color: #EEEEEE
+  btn color: #00ADB5
+  btn shadow: #393E4680
+*/
 
 body {
   margin: 0;
@@ -14,6 +25,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-@import url("./dashboard.css");
-@import url('./edit.css');

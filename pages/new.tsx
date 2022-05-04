@@ -150,11 +150,11 @@ const New: NextPage = (props: any) => {
             </Form>
 
             <footer style={{ textAlign: 'right' }}>
-                <Button style={{ margin: '5px' }} variant='success' onClick={onSave}>
+                <Button style={{ margin: '5px' }} onClick={onSave} variant='success'>
                     Save
                 </Button>
 
-                <Button style={{ margin: '5px' }} variant='danger' onClick={onCancel}>
+                <Button style={{ margin: '5px' }} variant='secondary' onClick={onCancel}>
                     Cancel
                 </Button>
             </footer>

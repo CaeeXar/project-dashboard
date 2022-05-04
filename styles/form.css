@@ -1,0 +1,58 @@
+.form-control {
+    color: #393E46;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem #393E4680;
+    color: #393E46;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-check:active+.btn-primary,
+.btn-check:checked+.btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: #00ADB5;
+    border-color: #00ADB5;
+    color: #EEEEEE;
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    background-color: #00ADB5;
+    border-color: #00ADB5;
+    box-shadow: 0 0 0 0.25rem #393E4680;
+    color: #EEEEEE;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-check:active+.btn-secondary,
+.btn-check:checked+.btn-secondary,
+.btn-secondary.active,
+.btn-secondary:active,
+.show>.btn-secondary.dropdown-toggle {
+    background-color: #393E46;
+    border-color: #393E46;
+    color: #EEEEEE;
+}
+
+.btn-check:focus+.btn-secondary,
+.btn-secondary:focus,
+.btn-check:active+.btn-secondary:focus,
+.btn-check:checked+.btn-secondary:focus,
+.btn-secondary.active:focus,
+.btn-secondary:active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
+    background-color: #393E46;
+    border-color: #393E46;
+    box-shadow: 0 0 0 0.25rem #393E4680;
+    color: #EEEEEE;
+}
