@@ -1,2 +1,2 @@
-const config = require("./database");
+const config = require('./database');
 config.migrate();

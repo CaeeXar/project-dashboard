@@ -1,18 +1,18 @@
 const sqlite3 = require('sqlite3');
-const sqlite = require("sqlite");
+const sqlite = require('sqlite');
 
 async function openDb() {
     return sqlite.open({
         filename: process.env.DB_PATH,
         // filename: "/home/remote/production/project-dashboard.db",
-        // filename: "D:\\sqlite\\DB\\project-dashboard.db",
-        driver: sqlite3.Database
+        // filename: 'D:\\sqlite\\DB\\project-dashboard.db',
+        driver: sqlite3.Database,
     });
 }
 
 async function migrate() {
     const db = await openDb();
-    db.migrate({ force: "last", migrationsPath: "./migrations/" })
+    db.migrate({ force: 'last', migrationsPath: './migrations/' });
 }
 
 async function getProjectStatus() {
@@ -36,7 +36,8 @@ async function getProjectById(id) {
 }
 
 async function updateProject(project) {
-    const { id, title, description, version, logo, statusId, externalPath } = project;
+    const { id, title, description, version, logo, statusId, externalPath } =
+        project;
     const db = await openDb();
 
     let stmt = `
@@ -89,6 +90,6 @@ const config = {
     updateProject,
     insertProject,
     deleteProject,
-}
+};
 
 module.exports = config;

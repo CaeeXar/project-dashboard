@@ -1,5 +1,5 @@
 import type { NextPage, NextApiRequest } from 'next';
-import { ChangeEvent, useState, } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Col, Container, Row, Form, Button, Image } from 'react-bootstrap';
 import type { ProjectStatus } from '../js/types';
 import { getProjectStatus } from '../js/database';
@@ -12,11 +12,11 @@ function routeHome(router: NextRouter) {
 }
 
 function findStatusColor(id: string, status: ProjectStatus[]) {
-    return (status.find(s => s.id == id) || {}).colorCode || 'black';
+    return (status.find((s) => s.id == id) || {}).colorCode || 'black';
 }
 
 function findStatusText(id: string, status: ProjectStatus[]) {
-    return (status.find(s => s.id == id) || {}).status || 'NOT FOUND';
+    return (status.find((s) => s.id == id) || {}).status || 'NOT FOUND';
 }
 
 const New: NextPage = (props: any) => {
@@ -57,7 +57,14 @@ const New: NextPage = (props: any) => {
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { title, description, version, statusId, logo, externalPath };
+        const project = {
+            title,
+            description,
+            version,
+            statusId,
+            logo,
+            externalPath,
+        };
 
         const res = await fetch('/api/new', {
             method: 'POST',
@@ -79,82 +86,120 @@ const New: NextPage = (props: any) => {
             </div>
 
             <Form>
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Title
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control value={title} onChange={e => setTitle(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Logo
                     </Form.Label>
 
-                    <Col sm='8'>
-                        <Form.Control accept='image/*' type='file' onChange={onLogoChange} />
+                    <Col sm="8">
+                        <Form.Control
+                            accept="image/*"
+                            type="file"
+                            onChange={onLogoChange}
+                        />
                     </Col>
 
-                    <Col sm='2'>
-                        {!!logo ? <Image alt='Logo' src={logo} className='img' /> : null}
+                    <Col sm="2">
+                        {!!logo ? (
+                            <Image alt="Logo" src={logo} className="img" />
+                        ) : null}
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Description
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control as='textarea' rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            as="textarea"
+                            rows={2}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Project-Path
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control value={externalPath || ''} onChange={e => setExternalPath(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            value={externalPath || ''}
+                            onChange={(e) => setExternalPath(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Version
                     </Form.Label>
 
-                    <Col sm='4'>
-                        <Form.Control value={version} onChange={e => setVersion(e.target.value)} />
+                    <Col sm="4">
+                        <Form.Control
+                            value={version}
+                            onChange={(e) => setVersion(e.target.value)}
+                        />
                     </Col>
 
-                    <Form.Label column sm='2'>
+                    <Form.Label column sm="2">
                         Status
                     </Form.Label>
 
-                    <Col sm='4'>
-                        <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
-                            <option value={''} disabled hidden>Choose current status</option>
-                            {PROJECT_STATUS.map(status => {
-                                return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
+                    <Col sm="4">
+                        <Form.Select
+                            onChange={onStatusChange}
+                            value={statusId}
+                            style={{
+                                color: findStatusColor(statusId, PROJECT_STATUS),
+                            }}
+                        >
+                            <option value={''} disabled hidden>
+                                Choose current status
+                            </option>
+                            {PROJECT_STATUS.map((status) => {
+                                return (
+                                    <option
+                                        style={{ color: status.colorCode }}
+                                        value={status.id}
+                                        key={status.id}
+                                    >
+                                        {status.status}
+                                    </option>
+                                );
                             })}
                         </Form.Select>
                     </Col>
                 </Form.Group>
-
-
             </Form>
 
             <footer style={{ textAlign: 'right' }}>
-                <Button style={{ margin: '5px' }} onClick={onSave} variant='success'>
+                <Button style={{ margin: '5px' }} onClick={onSave} variant="success">
                     Save
                 </Button>
 
-                <Button style={{ margin: '5px' }} variant='secondary' onClick={onCancel}>
+                <Button
+                    style={{ margin: '5px' }}
+                    variant="secondary"
+                    onClick={onCancel}
+                >
                     Cancel
                 </Button>
             </footer>
@@ -167,7 +212,7 @@ export async function getServerSideProps(context: NextApiRequest) {
 
     return {
         props: { PROJECT_STATUS },
-    }
+    };
 }
 
 export default New;

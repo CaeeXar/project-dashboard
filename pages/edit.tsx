@@ -1,5 +1,5 @@
 import type { NextPage, NextApiRequest } from 'next';
-import React, { ChangeEvent, useState, } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Col, Container, Row, Form, Button, Image } from 'react-bootstrap';
 import type { Project, ProjectStatus } from '../js/types';
 import { getProjectById, getProjectStatus } from '../js/database';
@@ -12,11 +12,11 @@ function routeHome(router: NextRouter) {
 }
 
 function findStatusColor(id: string, status: ProjectStatus[]) {
-    return (status.find(s => s.id == id) || {}).colorCode || 'black';
+    return (status.find((s) => s.id == id) || {}).colorCode || 'black';
 }
 
 function findStatusText(id: string, status: ProjectStatus[]) {
-    return (status.find(s => s.id == id) || {}).status || 'NOT FOUND';
+    return (status.find((s) => s.id == id) || {}).status || 'NOT FOUND';
 }
 
 const Edit: NextPage = (props: any) => {
@@ -30,7 +30,9 @@ const Edit: NextPage = (props: any) => {
     const [statusId, setStatusId] = useState(PROJECT.statusId);
     const [status, setStatus] = useState(PROJECT.status);
     const [logo, setLogo] = useState(PROJECT.logo);
-    const [externalPath, setExternalPath] = useState<string | null>(PROJECT.externalPath);
+    const [externalPath, setExternalPath] = useState<string | null>(
+        PROJECT.externalPath
+    );
 
     const onLogoChange = async (event: ChangeEvent) => {
         const target = event.target as HTMLInputElement;
@@ -58,7 +60,16 @@ const Edit: NextPage = (props: any) => {
     };
     const onCancel = () => routeHome(router);
     const onSave = async () => {
-        const project = { ...PROJECT, title, description, version, statusId, status, logo, externalPath };
+        const project = {
+            ...PROJECT,
+            title,
+            description,
+            version,
+            statusId,
+            status,
+            logo,
+            externalPath,
+        };
 
         const res = await fetch('/api/edit', {
             method: 'POST',
@@ -74,7 +85,16 @@ const Edit: NextPage = (props: any) => {
     };
     const onDelete = async () => {
         if (!confirm('Are you sure you want to delete this project?')) return;
-        const project = { ...PROJECT, title, description, version, statusId, status, logo, externalPath };
+        const project = {
+            ...PROJECT,
+            title,
+            description,
+            version,
+            statusId,
+            status,
+            logo,
+            externalPath,
+        };
 
         const res = await fetch('/api/edit', {
             method: 'DELETE',
@@ -96,67 +116,101 @@ const Edit: NextPage = (props: any) => {
             </div>
 
             <Form>
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Title
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control value={title} onChange={e => setTitle(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Logo
                     </Form.Label>
 
-                    <Col sm='8'>
-                        <Form.Control accept='image/*' type='file' onChange={onLogoChange} />
+                    <Col sm="8">
+                        <Form.Control
+                            accept="image/*"
+                            type="file"
+                            onChange={onLogoChange}
+                        />
                     </Col>
 
-                    <Col sm='2'>
-                        {!!logo ? <Image alt='Logo' src={logo} className='img' /> : null}
+                    <Col sm="2">
+                        {!!logo ? (
+                            <Image alt="Logo" src={logo} className="img" />
+                        ) : null}
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Description
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control as='textarea' rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            as="textarea"
+                            rows={2}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Project-Path
                     </Form.Label>
 
-                    <Col sm='10'>
-                        <Form.Control value={externalPath || ''} onChange={e => setExternalPath(e.target.value)} />
+                    <Col sm="10">
+                        <Form.Control
+                            value={externalPath || ''}
+                            onChange={(e) => setExternalPath(e.target.value)}
+                        />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-3'>
-                    <Form.Label column sm='2'>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
                         Version
                     </Form.Label>
 
-                    <Col sm='4'>
-                        <Form.Control value={version} onChange={e => setVersion(e.target.value)} />
+                    <Col sm="4">
+                        <Form.Control
+                            value={version}
+                            onChange={(e) => setVersion(e.target.value)}
+                        />
                     </Col>
 
-                    <Form.Label column sm='2'>
+                    <Form.Label column sm="2">
                         Status
                     </Form.Label>
 
-                    <Col sm='4'>
-                        <Form.Select onChange={onStatusChange} value={statusId} style={{ color: findStatusColor(statusId, PROJECT_STATUS) }}>
-                            {PROJECT_STATUS.map(status => {
-                                return <option style={{ color: status.colorCode }} value={status.id} key={status.id}>{status.status}</option>
+                    <Col sm="4">
+                        <Form.Select
+                            onChange={onStatusChange}
+                            value={statusId}
+                            style={{
+                                color: findStatusColor(statusId, PROJECT_STATUS),
+                            }}
+                        >
+                            {PROJECT_STATUS.map((status) => {
+                                return (
+                                    <option
+                                        style={{ color: status.colorCode }}
+                                        value={status.id}
+                                        key={status.id}
+                                    >
+                                        {status.status}
+                                    </option>
+                                );
                             })}
                         </Form.Select>
                     </Col>
@@ -164,15 +218,23 @@ const Edit: NextPage = (props: any) => {
             </Form>
 
             <footer style={{ textAlign: 'right' }}>
-                <Button style={{ margin: '5px' }} variant='success' onClick={onSave}>
+                <Button style={{ margin: '5px' }} variant="success" onClick={onSave}>
                     Save
                 </Button>
 
-                <Button style={{ margin: '5px' }} variant='secondary' onClick={onCancel}>
+                <Button
+                    style={{ margin: '5px' }}
+                    variant="secondary"
+                    onClick={onCancel}
+                >
                     Cancel
                 </Button>
 
-                <Button style={{ margin: '5px' }} variant='danger' onClick={onDelete}>
+                <Button
+                    style={{ margin: '5px' }}
+                    variant="danger"
+                    onClick={onDelete}
+                >
                     Delete
                 </Button>
             </footer>
@@ -188,7 +250,7 @@ export async function getServerSideProps(context: NextApiRequest) {
 
     return {
         props: { PROJECT, PROJECT_STATUS },
-    }
+    };
 }
 
 export default Edit;

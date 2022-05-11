@@ -4,22 +4,22 @@ body {
 
 .container {
     text-align: center;
-    color: #EEEEEE;
+    color: #eeeeee;
 }
 
 .card {
-    background-color: #393E46;
-    color: #EEEEEE;
-    max-height: 300px;
+    background-color: #393e46;
+    color: #eeeeee;
+    height: 175px;
 }
 
 hr {
     margin: 20px 0px;
-    background-color: #393E46;
+    background-color: #393e46;
 }
 
 .simplebar-scrollbar::before {
-    background-color: #393E46;
+    background-color: #393e46;
 }
 
 .simplebar-horizontal {
@@ -35,7 +35,7 @@ hr {
 }
 
 .card-footer {
-    border-color: #EEEEEE;
+    border-color: #eeeeee;
 }
 
 .pointer:hover {
@@ -43,6 +43,6 @@ hr {
 }
 
 .modal-content {
-    background: #393E46;
-    color: #EEEEEE;
+    background: #393e46;
+    color: #eeeeee;
 }

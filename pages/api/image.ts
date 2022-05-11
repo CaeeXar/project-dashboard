@@ -8,16 +8,16 @@ export const config = {
     },
 };
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'POST') return res.status(400).send('Only POST!');
 
     const form = new formidable.IncomingForm();
     return form.parse(req, async function (err, fields, files) {
-        let file: (File | File[]) = files.file;
+        let file: File | File[] = files.file;
 
         if (Array.isArray(file)) file = file[0];
         if (!file || !file.originalFilename)
-            return res.status(400).json({ message: 'Error during upload!' });;
+            return res.status(400).json({ message: 'Error during upload!' });
 
         // const split = file.originalFilename.split('.');
         // const ext = split[split.length - 1];
@@ -30,5 +30,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
         return res.status(200).json({ ...file, newFilename });
     });
-
 };
+
+export default handler;
