@@ -84,7 +84,11 @@ const Dashboard: NextPage = (props: any) => {
                                 <Card.Body>
                                     <Card.Title style={{ height: '27px' }}>
                                         <Card.Img
-                                            src={project.logo || undefined}
+                                            src={
+                                                !!project.logo
+                                                    ? '/' + project.logo
+                                                    : undefined
+                                            }
                                             style={{
                                                 margin: 'auto',
                                                 textAlign: 'center',
