@@ -173,7 +173,7 @@ const Dashboard: NextPage = (props: any) => {
                                 <Button onClick={handleClose}>
                                     <span>Goto&nbsp;</span>
 
-                                    <Link href={selected.externalPath}>
+                                    <Link href={selected.externalPath} passHref>
                                         <b>{selected.title}</b>
                                     </Link>
                                 </Button>
