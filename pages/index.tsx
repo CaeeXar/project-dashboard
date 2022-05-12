@@ -173,7 +173,13 @@ const Dashboard: NextPage = (props: any) => {
                                 <Button onClick={handleClose}>
                                     <span>Goto&nbsp;</span>
 
-                                    <a href={selected.externalPath || ''}>
+                                    <a
+                                        href={selected.externalPath || ''}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: '#eeeeee',
+                                        }}
+                                    >
                                         <b>{selected.title}</b>
                                     </a>
                                 </Button>
