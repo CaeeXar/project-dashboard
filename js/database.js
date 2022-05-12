@@ -45,7 +45,7 @@ async function updateProject(project) {
         SET title = '${title}',
             description = '${description}',
             ${!!logo ? `logo = '${logo}',` : ``}
-            ${!!externalPath ? `externalPath = '${externalPath}'` : ``}
+            ${!!externalPath ? `externalPath = '${externalPath}',` : ``}
             version = '${version}',
             statusId = '${statusId}'
         WHERE id = ${id}; 
