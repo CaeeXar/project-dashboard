@@ -173,9 +173,9 @@ const Dashboard: NextPage = (props: any) => {
                                 <Button onClick={handleClose}>
                                     <span>Goto&nbsp;</span>
 
-                                    <Link href={selected.externalPath} passHref>
+                                    <a href={selected.externalPath || ''}>
                                         <b>{selected.title}</b>
-                                    </Link>
+                                    </a>
                                 </Button>
                             ) : null}
                         </Modal.Footer>
