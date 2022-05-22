@@ -86,7 +86,7 @@ const Dashboard: NextPage = (props: any) => {
                                         <Card.Img
                                             src={
                                                 !!project.logo
-                                                    ? '/' + project.logo
+                                                    ? '/api/images/' + project.logo
                                                     : undefined
                                             }
                                             style={{
@@ -138,7 +138,7 @@ const Dashboard: NextPage = (props: any) => {
                             {selected.logo && (
                                 <Image
                                     alt="Logo"
-                                    src={selected.logo || undefined}
+                                    src={'/api/images/' + selected.logo}
                                     width="38px"
                                 />
                             )}
@@ -170,19 +170,13 @@ const Dashboard: NextPage = (props: any) => {
                             </small>
 
                             {!!selected.externalPath ? (
-                                <Button onClick={handleClose}>
-                                    <span>Goto&nbsp;</span>
+                                <Link href={selected.externalPath || ''} passHref>
+                                    <Button onClick={handleClose}>
+                                        <span>Goto&nbsp;</span>
 
-                                    <a
-                                        href={selected.externalPath || ''}
-                                        style={{
-                                            textDecoration: 'none',
-                                            color: '#eeeeee',
-                                        }}
-                                    >
                                         <b>{selected.title}</b>
-                                    </a>
-                                </Button>
+                                    </Button>
+                                </Link>
                             ) : null}
                         </Modal.Footer>
                     </>

@@ -27,7 +27,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'DELETE') {
         if (!!project.logo) {
             try {
-                fs.unlinkSync(`./public/${project.logo}`);
+                fs.unlinkSync(`./uploads/${project.logo}`);
             } catch {
                 console.error('Failed to delete logo!');
             }

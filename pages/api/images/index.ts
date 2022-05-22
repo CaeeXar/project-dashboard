@@ -25,7 +25,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
         const data = fs.readFileSync(file.filepath);
         const newFilename = timestamp + '_' + file.originalFilename;
 
-        fs.writeFileSync(`./public/${newFilename}`, data);
+        fs.writeFileSync(`./uploads/${newFilename}`, data);
         await fs.unlinkSync(file.filepath);
 
         return res.status(200).json({ ...file, newFilename });

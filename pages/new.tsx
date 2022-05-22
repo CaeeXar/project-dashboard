@@ -39,7 +39,7 @@ const New: NextPage = (props: any) => {
         const body = new FormData();
         body.append('file', file);
 
-        const res = await fetch('/api/image', {
+        const res = await fetch('/api/images', {
             method: 'POST',
             body,
         });
@@ -114,7 +114,11 @@ const New: NextPage = (props: any) => {
 
                     <Col sm="2">
                         {!!logo ? (
-                            <Image alt="Logo" src={logo} className="img" />
+                            <Image
+                                alt="Logo"
+                                src={'/api/images/' + logo}
+                                className="img"
+                            />
                         ) : null}
                     </Col>
                 </Form.Group>
