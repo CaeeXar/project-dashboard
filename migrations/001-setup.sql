@@ -31,7 +31,7 @@ INSERT INTO PROJECTS (title, description, logo, version, statusId, externalPath)
         'Project-Dashboard', 
         'A custom dashboard for visualizing all my different projects.',
          NULL, 
-         '1.0.0', 
+         '1.0.1', 
          'STAB', 
          '/'
     );
